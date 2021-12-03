@@ -1,0 +1,17 @@
+{
+  "name": "clase29-clusters-y-escalabilidad",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cluster.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:prod": "pm2 start desafio-pm2.js --name='app_cluster' --watch -i max -- 8087",
+    "start:stag": "pm2 start desafio-pm2.js --name='app_fork' --watch -- 8086"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pm2": "^5.1.2"
+  }
+}
