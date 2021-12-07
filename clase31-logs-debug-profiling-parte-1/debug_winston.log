@@ -1,0 +1,3 @@
+{"level":"info","message":"Operación exitosa!"}
+{"level":"error","message":"Se recibio un número inválido: ddd"}
+{"level":"warn","message":"Se recibio una petición a un recurso no válido."}
