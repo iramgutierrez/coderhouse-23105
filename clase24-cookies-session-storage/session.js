@@ -1,5 +1,6 @@
 const express = require('express')
 const session = require('express-session')
+const MongoStore = require('connect-mongo')
 
 const app = express()
 
@@ -38,17 +39,25 @@ const isAdmin = (req, res, next) => {
 
 
 app.use(session({
-  secret: 'qwerty'
+  secret: 'desafioClase25',
+  resave: true,
+  saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl:'mongodb://localhost:27017/sessions',
+    ttl: 20 
+  }),
+  cookie: { maxAge: 20000 }
 }))
 
-app.get('/session', (req, res) => {
-  if (req.session.contador) {
-    req.session.contador++
-    return res.send(`Has visitado ${req.session.contador} veces el sitio`)
-  }
 
-  req.session.contador = 1
-  return res.send('Bienvenido.')
+
+app.get('/data', (req, res) => {
+  req.session.data = true
+  return res.json(req.session)
+})
+
+app.get('/session', (req, res) => {
+  return res.json(req.session)
 })
 
 app.get('/logout', (req, res) => {
