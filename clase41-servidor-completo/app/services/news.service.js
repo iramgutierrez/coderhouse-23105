@@ -1,8 +1,19 @@
 const newsModel = require('../models/news.model')
 
 module.exports = {
-  find: async () => {
-    return newsModel.find()
+  find: async ({ page }) => {
+    const limit = 2
+    const skip = (page -1) * limit
+
+    const news = await newsModel.find().limit(limit).skip(skip)
+
+    return {
+      news,
+      urls: {
+        next: `http://localhost:3000/news?page=${+page+1}`,
+        prev: page > 1 ? `http://localhost:3000/news?page=${page-1}` : undefined
+      }
+    }
   },
   findById: async (id) => {
     const newFound = await newsModel.findById(id)

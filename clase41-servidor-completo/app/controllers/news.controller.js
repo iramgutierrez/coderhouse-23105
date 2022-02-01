@@ -3,7 +3,7 @@ const newsService = require('../services/news.service')
 module.exports = {
   all: async (req, res) => {
     try {
-      const news = await newsService.find()
+      const news = await newsService.find({ page: req.query.page || 1 })
       return res.json(news)
     } catch (e) {
       return res.status(500).json({ err: e.message })
